@@ -83,12 +83,77 @@ Benefits:
 
 ## ⚙ Training Details
 
+The model is trained using standard causal language modeling with cross-entropy loss over the vocabulary.
+Loss is computed as:
+P(tokenₜ | token₁ … tokenₜ₋₁)
+
+Logits and labels are flattened to efficiently compute loss over all tokens
+in the batch.
+
 - Optimizer: AdamW
 - Learning Rate: 6e-4 → 6e-5 (cosine decay)
 - Warmup Steps: 2000
 - Gradient Accumulation: 4
 - Gradient Clipping: 1.0
 - Precision: FP32 (high matmul precision)
+
+### 🔁 Gradient Accumulation
+
+Due to memory constraints, gradient accumulation is used to simulate a larger
+effective batch size.
+
+• Micro-batch size: 4  
+• Gradient accumulation steps: 4  
+• Effective batch size: 16 sequences  
+
+Loss is scaled down per micro-step and gradients are synchronized only after
+accumulation, enabling stable large-context training on limited hardware.
+
+
+### ⚡ Mixed Precision & Performance Optimization
+
+Training is accelerated using automatic mixed precision (AMP) with `bfloat16`
+and gradient scaling for numerical stability.
+
+Additional optimizations include:
+• `torch.compile` with max-autotune mode
+• High-precision matrix multiplication
+• Gradient norm clipping to prevent exploding gradients
+
+### 📉 Learning Rate Schedule
+
+A cosine decay learning rate schedule with linear warmup is used:
+
+• Linear warmup for the first 2,000 steps  
+• Cosine decay until max training steps  
+• Separate max and min learning rates  
+
+This improves early training stability and prevents late-stage overfitting.
+
+### 🧪 Evaluation Strategy
+
+Validation is performed periodically on a held-out dataset.
+
+• Average loss computed over multiple validation batches  
+• Perplexity is reported as the primary evaluation metric  
+• Evaluation runs in inference mode with no gradient computation
+
+
+### 📊 Experiment Tracking
+
+All training metrics are logged using Weights & Biases (wandb), including:
+
+• Training loss  
+• Validation loss & perplexity  
+• Learning rate  
+• GPU memory usage  
+• Token throughput (tokens/sec)  
+• Total tokens processed  
+
+This enables full reproducibility and performance analysis.
+
+
+
 
 
 ## 🚀 Deployment
