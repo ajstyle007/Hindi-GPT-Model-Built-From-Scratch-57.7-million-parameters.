@@ -1,7 +1,7 @@
 # HindiGPT 🚀  
 A Decoder-Only Transformer Language Model Trained from Scratch for Hindi
 
-HindiGPT-v1 is a custom decoder-only GPT architecture developed completely from scratch by Ajay Kumar.  
+HindiGPT-v1 is a custom 57.7M parameter decoder-only GPT architecture developed completely from scratch by Ajay Kumar.  
 The project includes a domain-specific SentencePiece tokenizer, a RoPE-based multi-head self-attention transformer, and large-scale pretraining on high-quality Hindi corpora (IndicCorp, OSCAR web crawl, and Wikipedia).  
 The model is fine-tuned for Hindi question–answering and deployed with a custom Gradio frontend on Hugging Face Spaces.
 
@@ -23,18 +23,80 @@ The model is fine-tuned for Hindi question–answering and deployed with a custo
 | Parameter | Value |
 |---------|------|
 | Model Name | HindiGPT-v1 |
-| Vocabulary Size | 32,768 |
+| Architecture | Decoder-only Transformer (GPT-style) |
+| Vocabulary Size | 32,768 (SentencePiece BPE – Hindi only) |
 | Layers | 12 |
 | Hidden Size (d_model) | 512 |
 | Attention Heads | 8 |
-| Feed Forward Dim | 2048 |
-| Sequence Length | 512 |
+| Feed Forward Dim (d_ff) | 2048 |
+| Max Sequence Length | 512 |
 | Dropout | 0.1 |
-| Total Tokens Trained | ~1.35B (1,352,264,099) |
+| Activation | GELU |
+| Positional Encoding | Learned |
+| Weight Tying | Yes (Embedding ↔ LM Head) |
+| **Total Parameters** | **57,709,056 (≈57M)** |
+| **Trainable Parameters** | **57,709,056 (100%)** |
+| **Total Tokens Trained** | **~1.35B (1,352,264,099)** |
+
+## 🖥️ Training Hardware & Environment
+
+| Component | Details |
+|---------|--------|
+| GPU | NVIDIA GeForce RTX 4050 Laptop GPU |
+| GPU Memory | 6 GB |
+| CUDA Version | 12.5 |
+| CPU | 20 Cores (28 Logical) |
+| RAM | 16 GB |
+| OS | Windows 11 |
+| Python | CPython 3.13 |
+| Framework | PyTorch (from scratch implementation) |
+
+## ⚙️ Training Hyperparameters
+
+| Parameter | Value |
+|---------|------|
+| Batch Size | 4 |
+| Gradient Accumulation | 4 |
+| Effective Batch Size | 16 |
+| Max Training Steps | 300,000 |
+| Optimizer | AdamW |
+| Learning Rate (Max) | 6e-4 |
+| Learning Rate (Min) | 6e-5 |
+| Gradient Clipping | 1.0 |
+| Evaluation Interval | 5,000 steps |
+| Logging Interval | 50 steps |
+
+## 📊 Training Metrics
+
+### 📉 Loss
+| Metric | Value |
+|------|------|
+| Final Training Loss | ~3.2 |
+| Final Validation Loss | ~4.0 |
+| Trend | Stable convergence |
+
+---
+
+### 🔢 Perplexity
+| Metric | Value |
+|------|------|
+| Initial Perplexity | ~400 |
+| Final Perplexity | **~53** |
+| Behavior | Smooth monotonic decay |
+
+---
+
+### 🚀 Throughput
+| Metric | Value |
+|------|------|
+| Tokens / Second | ~15,000 |
+| Total Tokens Seen | **1.35B** |
+| Training Steps | ~6,000 |
 
 ## 📚 Training Data
 
 The model was trained on a diverse and high-quality Hindi corpus:
+Raw Hindi text was collected from multiple large-scale public sources and processed through a multi-stage streaming data cleaning pipeline.
 
 | Dataset | Size | Description |
 |------|------|------------|
@@ -42,7 +104,17 @@ The model was trained on a diverse and high-quality Hindi corpus:
 | OSCAR Hindi | 9 GB | Web crawl (daily life Hindi) |
 | Hindi Wikipedia | 188 MB | Clean encyclopedic text |
 
-All datasets were cleaned, deduplicated, and normalized before training.
+Cleaning steps included:
+• Removal of non-Devanagari characters  
+• Unicode normalization and whitespace normalization  
+• Punctuation cleanup and normalization  
+• NSFW and adult content filtering  
+• Hindi digit normalization (०१२३४५६७८९ → 0123456789)  
+• Minimum length filtering to remove low-information text  
+• Wikipedia markup, templates, and metadata removal
+
+All cleaning was performed in a streaming manner, enabling processing of multi-gigabyte corpora on limited hardware.
+Data cleaning was performed in multiple streaming passes to ensure quality and scalability without loading the entire dataset into memory.
 
 
 ## 🔤 Custom Tokenizer
@@ -55,6 +127,20 @@ All datasets were cleaned, deduplicated, and normalized before training.
   - Conjunct characters
   - Matras
   - Informal + formal Hindi
+    
+### 🔄 Tokenization & Binary Conversion
+
+Binary training shards: multiple `.bin` files  
+After tokenizer training, the cleaned corpus was tokenized and converted into compact binary format for efficient training.
+Key details:
+• Each sentence is tokenized and terminated with an EOS token  
+• Token IDs are stored as uint16 for memory efficiency  
+• Data is written in fixed-size binary chunks  
+• Memory-mapped binary files enable fast random access during training
+
+This approach allows near-infinite random sampling during training while keeping RAM usage minimal.
+
+The dataset was specifically curated for decoder-only language modeling and optimized for long-context autoregressive training.
  
 ### Decoder Block
 
