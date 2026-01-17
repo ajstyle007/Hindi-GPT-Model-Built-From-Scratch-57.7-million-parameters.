@@ -1,0 +1,6 @@
+torch==2.6.0
+gradio==5.50.0
+sentencepiece==0.2.0
+faiss==
+sentence_transformers==3.4.1
+numpy==2.2.6
