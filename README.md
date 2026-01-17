@@ -31,7 +31,7 @@ The model is fine-tuned for Hindi question–answering and deployed with a custo
 | Feed Forward Dim (d_ff) | 2048 |
 | Max Sequence Length | 512 |
 | Dropout | 0.1 |
-| Activation | GELU |
+| Activation | SwiGLU (SiLU-based gated FFN) |
 | Positional Encoding | Learned |
 | Weight Tying | Yes (Embedding ↔ LM Head) |
 | **Total Parameters** | **57,709,056 (≈57M)** |
