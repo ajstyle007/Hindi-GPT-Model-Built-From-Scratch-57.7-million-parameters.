@@ -171,13 +171,16 @@ Each decoder block contains:
 
 ```
 
-![Decoder Block Architecture](https://github.com/user-attachments/assets/6725f6d2-fa7d-48cd-8048-bf40f3d71463)
+<div style="display:flex; gap:20px; justify-content:center;">
+  <img src="https://github.com/user-attachments/assets/7b8ffbef-fa34-409c-9521-c84de17fa36c" width="45%"/>
+  <img src="https://github.com/user-attachments/assets/13abe764-2909-4b2e-b46c-dd428adc0010" width="45%"/>
+</div>
 
-![Masked Multi-Head Attention](https://github.com/user-attachments/assets/5d6f42fd-3a49-4267-9ba6-f6c32a82ed3f)
+<div style="display:flex; gap:20px; justify-content:center; margin-top:20px;">
+  <img src="https://github.com/user-attachments/assets/cf0baa1c-6d2a-4e55-8f98-a1760363bf71" width="45%"/>
+  <img src="https://github.com/user-attachments/assets/07d09336-e835-4913-b332-75f746d09167" width="45%"/>
+</div>
 
-![SwiGLU Feed Forward Network](https://github.com/user-attachments/assets/ccca2d1f-ed0b-46c5-8df8-6b39af72905d)
-
-![Causal Mask Flow](https://github.com/user-attachments/assets/f1c4acbb-7fa0-481c-976d-ed38c50d4040)
 
 ```
 ## 🌀 Rotary Positional Embeddings (RoPE)
