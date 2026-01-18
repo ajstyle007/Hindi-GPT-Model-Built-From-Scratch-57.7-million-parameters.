@@ -165,6 +165,8 @@ Each decoder block contains:
 5. SwiGLU Feed Forward Network
 6. Residual Connection
 
+```
+
 ![Decoder Block Architecture](https://github.com/user-attachments/assets/6725f6d2-fa7d-48cd-8048-bf40f3d71463)
 
 ![Masked Multi-Head Attention](https://github.com/user-attachments/assets/5d6f42fd-3a49-4267-9ba6-f6c32a82ed3f)
@@ -173,7 +175,7 @@ Each decoder block contains:
 
 ![Causal Mask Flow](https://github.com/user-attachments/assets/f1c4acbb-7fa0-481c-976d-ed38c50d4040)
 
-
+```
 ## 🌀 Rotary Positional Embeddings (RoPE)
 
 Instead of absolute positional embeddings, RoPE is applied directly to query and key vectors.
@@ -254,7 +256,9 @@ All training metrics are logged using Weights & Biases (wandb), including:
 
 This enables full reproducibility and performance analysis.
 
+```
 
+```
 ## 🚀 Deployment
 
 The model is deployed on Hugging Face Spaces using Gradio.
@@ -262,10 +266,11 @@ The model is deployed on Hugging Face Spaces using Gradio.
 - Backend: PyTorch
 - Frontend: Gradio
 - Hardware: CPU (GPU not enabled)
+```
 
 ![Live Demo](https://github.com/user-attachments/assets/59c015b5-5b54-4883-8dfe-e99f4fecb250)
 
-
+```
 🔗 Live Demo:
 https://musk12-hindi-gpt-model-built-from-scratch.hf.space/
 
