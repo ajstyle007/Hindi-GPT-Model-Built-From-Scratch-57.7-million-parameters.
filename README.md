@@ -1,13 +1,17 @@
 # HindiGPT 🚀  
 A Decoder-Only Transformer Language Model Trained from Scratch for Hindi.
 
-<img width="1920" height="1080" alt="single_decoder_gpt_graph" src="https://github.com/user-attachments/assets/ce985c40-a5f0-469a-80d9-4f11f136d8c8" />
-
-<img width="1722" height="807" alt="hindi_gpt_web_app" src="https://github.com/user-attachments/assets/cadb461e-dfe8-4ee4-93db-ecc41db78251" />
-
 HindiGPT-v1 is a custom 57.7M parameter decoder-only GPT architecture developed completely from scratch by Ajay Kumar.  
 The project includes a domain-specific SentencePiece tokenizer, a RoPE-based multi-head self-attention transformer, and large-scale pretraining on high-quality Hindi corpora (IndicCorp, OSCAR web crawl, and Wikipedia).  
+
+<div style="display:flex; gap:20px;">
+  <img src="https://github.com/user-attachments/assets/a3eaff1c-8def-4819-90b7-00f8babec582" width="45%"/>
+  <img src="https://github.com/user-attachments/assets/5c73e49d-ea66-46de-8006-6ae9e38afbb2" width="45%"/>
+</div>
+
 The model is fine-tuned for Hindi question–answering and deployed with a custom Gradio frontend on Hugging Face Spaces.
+
+<img width="1722" height="807" alt="hindi_gpt_web_app" src="https://github.com/user-attachments/assets/cadb461e-dfe8-4ee4-93db-ecc41db78251" />
 
 ## 🔑 Key Highlights
 
@@ -270,11 +274,11 @@ The model is deployed on Hugging Face Spaces using Gradio.
 
 ![Live Demo](https://github.com/user-attachments/assets/59c015b5-5b54-4883-8dfe-e99f4fecb250)
 
-```
+
 🔗 Live Demo:
 https://musk12-hindi-gpt-model-built-from-scratch.hf.space/
 
-
+```
 ## ⚠ Limitations
 
 - CPU-only deployment leads to slower inference
