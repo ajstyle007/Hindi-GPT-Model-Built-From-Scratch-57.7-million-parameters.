@@ -1,4 +1,4 @@
-# HindiGPT 🚀  ![Live Demo](https://github.com/user-attachments/assets/59c015b5-5b54-4883-8dfe-e99f4fecb250)
+# HindiGPT 🚀  [Live demo](https://musk12-hindi-gpt-model-built-from-scratch.hf.space/)
 ## A Decoder-Only Transformer Language Model Trained from Scratch for Hindi.
 
 HindiGPT-v1 is a custom 57.7M parameter decoder-only GPT architecture developed completely from scratch by Ajay Kumar.  
