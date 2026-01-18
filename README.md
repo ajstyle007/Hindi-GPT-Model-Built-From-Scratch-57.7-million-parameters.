@@ -1,5 +1,5 @@
-# HindiGPT 🚀  
-A Decoder-Only Transformer Language Model Trained from Scratch for Hindi.
+# HindiGPT 🚀  ![Live Demo](https://github.com/user-attachments/assets/59c015b5-5b54-4883-8dfe-e99f4fecb250)
+## A Decoder-Only Transformer Language Model Trained from Scratch for Hindi.
 
 HindiGPT-v1 is a custom 57.7M parameter decoder-only GPT architecture developed completely from scratch by Ajay Kumar.  
 The project includes a domain-specific SentencePiece tokenizer, a RoPE-based multi-head self-attention transformer, and large-scale pretraining on high-quality Hindi corpora (IndicCorp, OSCAR web crawl, and Wikipedia).  
